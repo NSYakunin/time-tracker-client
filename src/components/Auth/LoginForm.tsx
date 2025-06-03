@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axiosClient from '../../api/axiosClient'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import '../../styles/forms.css'
 
 export default function LoginForm() {
@@ -33,6 +33,9 @@ export default function LoginForm() {
 				onChange={e => setPassword(e.target.value)}
 			/>
 			<button type='submit'>Войти</button>
+			<p>
+				Нет аккаунта? <Link to='/register'>Регистрация</Link>
+			</p>
 		</form>
 	)
 }

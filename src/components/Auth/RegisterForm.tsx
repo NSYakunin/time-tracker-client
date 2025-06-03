@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axiosClient from '../../api/axiosClient'
+import { Link } from 'react-router-dom'
 import '../../styles/forms.css'
 
 export default function RegisterForm() {
@@ -9,7 +10,7 @@ export default function RegisterForm() {
 	const handleRegister = async (e: React.FormEvent) => {
 		e.preventDefault()
 		await axiosClient.post('/auth/register', { email, password })
-		alert('Регистрация успешна!')
+		alert('Регистрация успешна! Теперь вы можете войти.')
 	}
 
 	return (
@@ -30,6 +31,9 @@ export default function RegisterForm() {
 				onChange={e => setPassword(e.target.value)}
 			/>
 			<button type='submit'>Зарегистрироваться</button>
+			<p>
+				Уже есть аккаунт? <Link to='/'>Войти</Link>
+			</p>
 		</form>
 	)
 }
