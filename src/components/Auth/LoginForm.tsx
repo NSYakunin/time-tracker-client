@@ -10,9 +10,16 @@ export default function LoginForm() {
 
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault()
-		const response = await axiosClient.post('/auth/login', { email, password })
-		localStorage.setItem('token', response.data.token)
-		navigate('/tasks')
+		try {
+			const response = await axiosClient.post('/auth/login', {
+				email,
+				password,
+			})
+			localStorage.setItem('token', response.data.token)
+			navigate('/tasks')
+		} catch (error: any) {
+			alert(error.response?.data || 'Ошибка при входе')
+		}
 	}
 
 	return (

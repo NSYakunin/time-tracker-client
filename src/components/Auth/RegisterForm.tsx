@@ -1,16 +1,22 @@
 import { useState } from 'react'
 import axiosClient from '../../api/axiosClient'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../../styles/forms.css'
 
 export default function RegisterForm() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const navigate = useNavigate()
 
 	const handleRegister = async (e: React.FormEvent) => {
 		e.preventDefault()
-		await axiosClient.post('/auth/register', { email, password })
-		alert('Регистрация успешна! Теперь вы можете войти.')
+		try {
+			await axiosClient.post('/auth/register', { email, password })
+			alert('Регистрация успешна! Теперь вы можете войти.')
+			navigate('/')
+		} catch (error: any) {
+			alert(error.response?.data || 'Ошибка при регистрации')
+		}
 	}
 
 	return (

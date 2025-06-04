@@ -14,10 +14,39 @@
 .user-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
   background-color: #f0f4f8;
   padding: 10px;
   border-radius: 5px;
+}
+
+.user-info button {
+  margin-left: 10px;
+}
+
+.settings-button {
+  background-color: #ffa500;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.settings-button:hover {
+  background-color: #ff8c00;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.logout-button:hover {
+  background-color: #c82333;
 }
 
 .task-form {
@@ -65,10 +94,64 @@
   background-color: #f8f9fa;
 }
 
+/* При наведении на строку задачи */
+.task-row:hover {
+  background-color: #f5f5f5;
+  transition: background-color 0.3s ease;
+}
+
 .delete-button {
   background: none;
   border: none;
   color: red;
   cursor: pointer;
   font-size: 1.2rem;
+  margin: 0 5px;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin: 0 5px;
+}
+
+.save-button {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/* Прогресс-бар */
+.progress-container {
+  width: 100%;
+  background-color: #e9ecef;
+  height: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #28a745;
+  text-align: center;
+  color: #fff;
+  transition: width 0.3s ease-in-out; /* Анимация заполнения */
+  white-space: nowrap;
+  font-size: 0.85rem;
 }
