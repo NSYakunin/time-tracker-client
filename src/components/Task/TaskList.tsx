@@ -73,13 +73,15 @@ export default function TaskList() {
 		}
 	}
 
-	// Удаление задачи по ID
+	// Удаление задачи по ID (с подтверждением)
 	const handleDeleteTask = async (id: string) => {
-		try {
-			await axiosClient.delete(`/taskentries/${id}`)
-			loadTasks()
-		} catch (err) {
-			alert('Ошибка при удалении задачи')
+		if (window.confirm('Вы уверены, что хотите удалить эту задачу?')) {
+			try {
+				await axiosClient.delete(`/taskentries/${id}`)
+				loadTasks()
+			} catch (err) {
+				alert('Ошибка при удалении задачи')
+			}
 		}
 	}
 
