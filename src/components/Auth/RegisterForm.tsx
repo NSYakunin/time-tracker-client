@@ -6,12 +6,21 @@ import '../../styles/forms.css'
 export default function RegisterForm() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [login, setLogin] = useState('')
+	const [firstName, setFirstName] = useState('')
+	const [lastName, setLastName] = useState('')
 	const navigate = useNavigate()
 
 	const handleRegister = async (e: React.FormEvent) => {
 		e.preventDefault()
 		try {
-			await axiosClient.post('/auth/register', { email, password })
+			await axiosClient.post('/auth/register', {
+				email,
+				password,
+				login,
+				firstName,
+				lastName,
+			})
 			alert('Регистрация успешна! Теперь вы можете войти.')
 			navigate('/')
 		} catch (error: any) {
@@ -28,6 +37,27 @@ export default function RegisterForm() {
 				required
 				value={email}
 				onChange={e => setEmail(e.target.value)}
+			/>
+			<input
+				type='text'
+				placeholder='Логин'
+				required
+				value={login}
+				onChange={e => setLogin(e.target.value)}
+			/>
+			<input
+				type='text'
+				placeholder='Имя'
+				required
+				value={firstName}
+				onChange={e => setFirstName(e.target.value)}
+			/>
+			<input
+				type='text'
+				placeholder='Фамилия'
+				required
+				value={lastName}
+				onChange={e => setLastName(e.target.value)}
 			/>
 			<input
 				type='password'

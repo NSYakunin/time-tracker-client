@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import TasksPage from './pages/TasksPage'
 import SettingsPage from './pages/SettingsPage'
+import MainLayout from './layouts/MainLayout'
 
 export default function App() {
 	return (
@@ -10,8 +11,10 @@ export default function App() {
 			<Routes>
 				<Route path='/' element={<LoginPage />} />
 				<Route path='/register' element={<RegisterPage />} />
-				<Route path='/tasks' element={<TasksPage />} />
-				<Route path='/settings' element={<SettingsPage />} />
+				<Route element={<MainLayout />}>
+					<Route path='/tasks' element={<TasksPage />} />
+					<Route path='/settings' element={<SettingsPage />} />
+				</Route>
 			</Routes>
 		</Router>
 	)

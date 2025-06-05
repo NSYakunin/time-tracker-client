@@ -4,19 +4,24 @@ import { useNavigate } from 'react-router-dom'
 import '../../styles/forms.css'
 
 export default function SettingsForm() {
-	const [email, setEmail] = useState('')
+	const [login, setLogin] = useState('')
+	const [firstName, setFirstName] = useState('')
+	const [lastName, setLastName] = useState('')
 	const [newEmail, setNewEmail] = useState('')
 	const [newPassword, setNewPassword] = useState('')
+	const [newLogin, setNewLogin] = useState('')
+	const [newFirstName, setNewFirstName] = useState('')
+	const [newLastName, setNewLastName] = useState('')
 	const navigate = useNavigate()
 
-	// Загрузим текущего пользователя (email) для отображения
 	useEffect(() => {
 		const loadUser = async () => {
 			try {
 				const res = await axiosClient.get('/auth/me')
-				setEmail(res.data.email)
+				setLogin(res.data.login)
+				setFirstName(res.data.firstName)
+				setLastName(res.data.lastName)
 			} catch (err) {
-				// Если не авторизован, выкидываем на логин
 				navigate('/')
 			}
 		}
@@ -26,24 +31,20 @@ export default function SettingsForm() {
 	const handleUpdate = async (e: React.FormEvent) => {
 		e.preventDefault()
 		try {
-			// Отправляем новые данные на сервер
 			const response = await axiosClient.put('/user/update', {
 				newEmail,
 				newPassword,
+				newLogin,
+				newFirstName,
+				newLastName,
 			})
 
-			// Сервер вернёт новый токен, если email был обновлён
 			if (response.data.token) {
 				localStorage.setItem('token', response.data.token)
 			}
 
 			alert('Данные успешно обновлены!')
-			// Сбросим поля
-			setNewEmail('')
-			setNewPassword('')
-			// Перезагрузим страницу или заново запросим email
-			const res = await axiosClient.get('/auth/me')
-			setEmail(res.data.email)
+			navigate('/tasks') // После обновления сразу на задачи
 		} catch (error: any) {
 			alert(error.response?.data || 'Ошибка при обновлении данных')
 		}
@@ -53,9 +54,33 @@ export default function SettingsForm() {
 		<form className='form-container' onSubmit={handleUpdate}>
 			<h2>Настройки пользователя</h2>
 			<p>
-				Текущий email: <strong>{email}</strong>
+				Логин: <strong>{login}</strong>
+			</p>
+			<p>
+				Имя: <strong>{firstName}</strong>
+			</p>
+			<p>
+				Фамилия: <strong>{lastName}</strong>
 			</p>
 
+			<input
+				type='text'
+				placeholder='Новый логин'
+				value={newLogin}
+				onChange={e => setNewLogin(e.target.value)}
+			/>
+			<input
+				type='text'
+				placeholder='Новое имя'
+				value={newFirstName}
+				onChange={e => setNewFirstName(e.target.value)}
+			/>
+			<input
+				type='text'
+				placeholder='Новая фамилия'
+				value={newLastName}
+				onChange={e => setNewLastName(e.target.value)}
+			/>
 			<input
 				type='email'
 				placeholder='Новый Email'
